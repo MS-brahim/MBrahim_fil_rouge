@@ -6,6 +6,7 @@ import { CheckBox, Input } from 'react-native-elements';
 import { MenuBar, ButtonShared } from '../components';
 import { createServiceItem } from '../actions'
 import {connect} from 'react-redux'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 // import { TabView, SceneMap } from 'react-native-tab-view';
@@ -31,35 +32,35 @@ class AddService extends Component {
 
     constructor(props) {
         super(props);
+        console.log(AsyncStorage.getItem('TOKEN'));
+        
         this.state = {
-            depart:'',
-            arival:'',
+            departure:'',
+            destination:'',
             address_depart:'',
-            address_arival:'',
+            address_dest:'',
             date_depart:'',
-            date_arival:'',
+            date_dest:'',
             checked:false,
-            weight: 0,
-            description: '',
+            weight: '0',
             image: '',
-            userId: '61367de0139793142ce35b28'
+            user_id: '61367de0139793142ce35b28'
         };
     }
 
     _onPublicPressed(){
-        // console.log(this.state);
-        this.props.createServiceItem({
-            depart: this.state.depart, 
-            arival: this.state.arival, 
-            address_arival: this.state.address_arival, 
+        const data = {
+            departure: this.state.departure, 
+            destination: this.state.destination, 
+            address_dest: this.state.address_dest, 
             address_depart: this.state.address_depart, 
             date_depart: this.state.date_depart, 
-            date_arival: this.state.date_arival,
+            date_dest: this.state.date_dest,
             weight: this.state.weight, 
-            description: this.state.description, 
             image: this.state.image, 
             user_id: this.state.user_id
-        })
+        }
+        this.props.createServiceItem(data)
     }
 
     // RENDER BUTTON 
@@ -92,12 +93,12 @@ class AddService extends Component {
                         <Input
                             placeholder='Departure'
                             inputStyle={{color:'#cccccc', paddingLeft:5}}
-                            onChangeText={(depart)=> this.setState({depart})}
+                            onChangeText={(departure)=> this.setState({departure})}
                         />
                         <Input
                             placeholder='Destination'
                             inputStyle={{color:'#cccccc', paddingLeft:5}}
-                            onChangeText={(arival)=> this.setState({arival})}
+                            onChangeText={(destination)=> this.setState({destination})}
                         />
                         <Input
                             placeholder='Adresse departure'
@@ -107,7 +108,7 @@ class AddService extends Component {
                         <Input
                             placeholder='Adresse destination'
                             inputStyle={{color:'#cccccc', paddingLeft:5}}
-                            onChangeText={(address_arival)=> this.setState({address_arival})}
+                            onChangeText={(address_dest)=> this.setState({address_dest})}
                         />
                         <Input
                             placeholder='Date departure'
@@ -117,19 +118,13 @@ class AddService extends Component {
                         <Input
                             placeholder='Date destination'
                             inputStyle={{color:'#cccccc', paddingLeft:5}}
-                            onChangeText={(date_arival)=> this.setState({date_arival})}
+                            onChangeText={(date_dest)=> this.setState({date_dest})}
                         />
                         <Input
                             placeholder='Poids en Kg'
                             disabled={this.state.checked}
                             inputStyle={{color:'#cccccc', paddingLeft:5}}
                             onChangeText={(weight)=> this.setState({weight})}
-                        />
-                        <Input
-                            placeholder='Description'
-                            disabled={this.state.checked}
-                            inputStyle={{color:'#cccccc', paddingLeft:5}}
-                            onChangeText={(description)=> this.setState({description})}
                         />
                         <Input
                             placeholder='Image'

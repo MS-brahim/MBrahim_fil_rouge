@@ -1,53 +1,34 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
-import Services from "views/examples/Services.js";
-import Login from "views/examples/Login.js";
-import Tables from "views/examples/Tables.js";
-import Users from "views/examples/Users.js";
+import Profile from "views/screens/Profile";
+import Services from "views/screens/Services.js";
+import Users from "views/screens/Users.js";
 
 var routes = [
   {
     path: "/index",
     name: "Dashboard",
-    icon: "ni ni-tv-2 text-primary",
+    icon: "fas fa-tachometer-alt text-primary",
     component: Index,
     layout: "/admin",
   },
   {
     path: "/services",
     name: "Services",
-    icon: "ni ni-delivery-fast text-orange",
+    icon: "fas fa-taxi text-orange",
     component: Services,
     layout: "/admin",
   },
   {
     path: "/packages",
     name: "Packages",
-    icon: "fas fa-users  text-blue",
+    icon: "fas fa-cube text-blue",
     component: Users,
     layout: "/admin",
   },
   {
     path: "/users",
     name: "Users",
-    icon: "ni ni-single-02 text-blue",
+    icon: "fas fa-users text-blue",
     component: Users,
     layout: "/admin",
   },
@@ -59,18 +40,25 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
+    path: "/profile",
+    name: "My profile",
+    icon: "ni ni-single-02 text-success",
+    component: Profile,
     layout: "/admin",
   },
   {
-    path: "/login",
-    name: "Login",
-    icon: "ni ni-key-25 text-info",
-    component: Login,
-    layout: "/auth",
+    path: "/support",
+    name: "Support",
+    icon: "ni ni-support-16 text-danger",
+    component: Profile,
+    layout: "/admin",
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    icon: "ni ni-user-run text-dark",
+    component: Profile,
+    layout: "/admin",
   },
 ];
 export default routes;

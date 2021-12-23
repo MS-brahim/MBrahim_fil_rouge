@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, ActivityIndicator, Text } from 'react-native';
 import { ListItem, Icon, Image, Avatar, Card } from 'react-native-elements'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { connect } from 'react-redux';
-import { getUserById } from '../actions'
+import jwt_decode from "jwt-decode";
+
 const list = [
     {
       title: 'Home',
@@ -31,12 +31,13 @@ const styles = StyleSheet.create({
 });
 
 
-class Dashboard extends Component {
+class DashboardScreen extends Component {
 
     
     componentDidMount(){
-       
-       this.props.getUserById('61367de0139793142ce35b28');
+        var token =  AsyncStorage.getItem('TOKEN')
+        console.log(token);
+    //    this.props.getUserById('61367de0139793142ce35b28');
        
     }
 
@@ -60,7 +61,7 @@ class Dashboard extends Component {
                             style={{
                                 alignSelf:'center',
                             }}>
-                            <Image 
+                            {/* <Image 
                                 source={{
                                     uri:this.props.userId.image ,
                                 }}
@@ -70,10 +71,10 @@ class Dashboard extends Component {
                             }}
                             >
                                 <Avatar.Accessory activeOpacity={0.2} style={{backgroundColor:'#072b61d9', padding:11, top:15,right:-1}}/>
-                            </Image>
+                            </Image> */}
                             <Card.Divider/>
                             <Card.Title style={{position:'relative'}}>
-                                {this.props.userId.first_name} {this.props.userId.last_name }
+                                {/* {this.props.userId.first_name} {this.props.userId.last_name } */}
                                 <Avatar.Accessory activeOpacity={0.2} style={{backgroundColor:'#072b61d9', padding:9}}/>
                             </Card.Title>
                             
@@ -110,14 +111,7 @@ class Dashboard extends Component {
 }
 
 
-const mapStateToProps = state => {
-  return {
-    error: state.userId.error,  
-    fetching: state.userId.fetching,  
-    userId: state.userId.userId,  
-  };
-};
 
-const DashboardScreen = connect(mapStateToProps, {getUserById}) (Dashboard);
+
 
 export {DashboardScreen};

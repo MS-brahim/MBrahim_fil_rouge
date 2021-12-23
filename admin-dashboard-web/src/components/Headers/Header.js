@@ -129,7 +129,7 @@ const Header = () => {
                       </div>
                       <Col className="col-auto">
                         <div className="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-user-tag"></i>
+                        <i className="fas fa-user-tag"></i>
                         </div>
                       </Col>
                     </Row>

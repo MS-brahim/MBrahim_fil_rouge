@@ -10,28 +10,39 @@ export const getServicesItems = () => {
         try {
             dispatch({type: SERVICES_FETCHING});
             const { data } = await apiGetServiceItem();
-            console.log(data);
             dispatch({type: SERVICES_FETCHING_SUCCESS, services:data.services})
         } catch (error) {
-            dispatch({type: SERVICES_FETCHING_FAILED, error: data.message})
+            dispatch({type: SERVICES_FETCHING_FAILED, error})
         }
     }
 }
 
-export const createServiceItem = ({newService}) => {
+export const createServiceItem = (newService) => {
    return async (dispatch)=>{
         dispatch({type: SERVICES_ADDING})
-        const  data  = await apiCreate({newService}).then((result) => {
-            handleResponse(dispatch, result.data)
+        console.log(newService);
+        const service = {
+            departure: newService.departure,
+            destination: newService.destination, 
+            address_dest: newService.address_dest, 
+            address_depart: newService.address_depart, 
+            date_depart: newService.date_depart, 
+            date_dest: newService.date_dest,
+            weight: newService.weight, 
+            image: newService.image, 
+            user_id: newService.user_id
+        }
+        await apiCreate(service).then((result) => {
+            // console.log(result);
+            // handleResponse(dispatch, result.data)
         }).catch((err) => {
             console.error(err);
         });
-        console.log(data);
     };
 };
 
 const handleResponse = (dispatch, data) =>{
-    console.log(data);
+    console.log(data.message);
     // if (!data.success) {
     //     // console.log(data.message);
     //     onLoginFailed(dispatch, data.message);

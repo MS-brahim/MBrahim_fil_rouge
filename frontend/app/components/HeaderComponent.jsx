@@ -44,7 +44,6 @@ class HeaderComponent extends Component {
 
     componentDidMount(){
         // this.props.navigation.setParams({ handleSave: this._logout });
-        console.log(AsyncStorage.getItem('TOKEN'));
     }
 
     _logout (){

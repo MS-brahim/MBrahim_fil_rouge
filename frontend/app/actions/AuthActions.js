@@ -4,6 +4,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import config from '../../config'
+import jwt_decode from "jwt-decode";
 
 
 export const LoginAuth = ({email, password}) => {
@@ -27,16 +28,16 @@ const handleResponse = (dispatch, data) =>{
         // console.log(data.message);
         onLoginFailed(dispatch, data.message);
     }else{
-        onLoadSuccess(dispatch, data.auth, data.token)
-        console.log('user logged', data.auth.id);
-        AsyncStorage.setItem('UID', data.auth.id)
+        onLoadSuccess(dispatch, data.token)
     }
 }
 
-const onLoadSuccess = (dispatch, user, token) =>{
+const onLoadSuccess = (dispatch, token) =>{
+    var user = jwt_decode(token);
     AsyncStorage.setItem('TOKEN', token)
         .then(()=>{
             dispatch({type:LOGIN_SUCCESS, user})
+            AsyncStorage.setItem('UID', user.auth.userId._id)
         })
 }
 
