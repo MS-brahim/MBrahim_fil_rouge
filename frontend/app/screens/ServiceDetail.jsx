@@ -50,10 +50,9 @@ class ServiceDetail extends Component {
     
     render(){
         const detailServiceItem = this.props.route.params.itemID
-        // console.log(detailServiceItem);
         return (
             <View style={styles.container}>
-                <View style={styles.bgTop}>
+                <View style={styles.bgTop} >
                      <Image 
                         source={{
                             uri:detailServiceItem.user_id.image ,
@@ -68,7 +67,7 @@ class ServiceDetail extends Component {
                 <View style={styles.bgBottom}>
                     <View style={styles.userInfo}>
                         <View style={{flex:2}}>
-                            <Text style={{color:'#fff'}}>{detailServiceItem.user_id.first_name} {detailServiceItem.user_id.last_name}</Text>
+                            <Text onPress={()=> this.props.navigation.navigate('ProfileScreen')} style={{color:'#fff'}}>{detailServiceItem.user_id.first_name} {detailServiceItem.user_id.last_name}</Text>
                             <Text style={{fontSize:10, color:'#fff'}}>
                                 {
                                 new Date(Date.parse(detailServiceItem.createdAt)).toDateString()
@@ -127,7 +126,7 @@ class ServiceDetail extends Component {
                     <View style={{margin:20}}>
                         {/* <ButtonShared text='Essayer maintenant'
                             onPress={ 
-                                this.props.navigation.navigate('ReservationScreen', { itemID: detailServiceItem})
+                                this.props.navigation.navigate('HelpScreen', { itemID: detailServiceItem})
                             }
                         /> */}
                     </View>

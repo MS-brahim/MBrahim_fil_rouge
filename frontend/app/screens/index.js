@@ -2,7 +2,7 @@ export * from './HomeScreen';
 export * from './ProfileScreen';
 export * from './DashboardScreen';
 export * from './AddServiceScreen';
-export * from './ReservationScreen';
+export * from './HelpScreen';
 export * from './BellScreen';
 export * from './InboxScreen';
 export * from './DiscordScreen';

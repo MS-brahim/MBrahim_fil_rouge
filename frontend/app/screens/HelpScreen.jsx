@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class ReservationScreen extends Component {
+class HelpScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -42,8 +42,8 @@ class ReservationScreen extends Component {
         )
     }
     render(){
-        const detailServiceItem = this.props.route.params.itemID
-        console.log(detailServiceItem);
+        // const detailServiceItem = this.props.route.params.itemID
+        // console.log(detailServiceItem);
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -84,4 +84,4 @@ class ReservationScreen extends Component {
 }
 
  
-export {ReservationScreen};
+export {HelpScreen};

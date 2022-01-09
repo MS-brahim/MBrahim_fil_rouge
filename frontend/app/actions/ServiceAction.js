@@ -1,9 +1,23 @@
 import {
     SERVICES_FETCHING, SERVICES_FETCHING_SUCCESS, SERVICES_FETCHING_FAILED,
-    SERVICES_ADDING, SERVICES_ADDING_FAILED, SERVICES_ADDING_SUCCESS,
+    SERVICES_ADDING, SERVICES_ADDING_FAILED, SERVICES_ADDING_SUCCESS, SEARCHING,
 } from './types'
-import { apiCreate, apiGetServiceItem } from './api/api.service.js'
+import { apiCreate, apiGetServiceItem, apiSearching } from './api/api.service.js'
 
+export const searchFromTo = (city) => {
+    return async (dispatch)=>{
+        try {   
+            dispatch({type: SEARCHING})
+            const { data } =  await apiSearching(city)
+            console.log(data);
+            
+            dispatch({type: SERVICES_FETCHING_SUCCESS, services:data.results})
+        } catch (error) {
+            console.log(error);
+            dispatch({type: SERVICES_FETCHING_FAILED, error})
+        }
+    }
+};
 
 export const getServicesItems = () => {
     return async (dispatch) => {
@@ -20,7 +34,7 @@ export const getServicesItems = () => {
 export const createServiceItem = (newService) => {
    return async (dispatch)=>{
         dispatch({type: SERVICES_ADDING})
-        console.log(newService);
+        // console.log(newService);
         const service = {
             departure: newService.departure,
             destination: newService.destination, 
@@ -33,33 +47,10 @@ export const createServiceItem = (newService) => {
             user_id: newService.user_id
         }
         await apiCreate(service).then((result) => {
-            // console.log(result);
-            // handleResponse(dispatch, result.data)
+            console.log(result);
+            this.props.navigation.navigate('HomeScreen')
         }).catch((err) => {
             console.error(err);
         });
     };
-};
-
-const handleResponse = (dispatch, data) =>{
-    console.log(data.message);
-    // if (!data.success) {
-    //     // console.log(data.message);
-    //     onLoginFailed(dispatch, data.message);
-    // }else{
-    //     onLoadSuccess(dispatch, data.auth, data.token)
-    //     console.log('user logged', data.auth.id);
-    //     AsyncStorage.setItem('UID', data.auth.id)
-    // }
-}
-
-const onLoadSuccess = (dispatch, user, token) =>{
-    AsyncStorage.setItem('TOKEN', token)
-        .then(()=>{
-            dispatch({type:LOGIN_SUCCESS, user})
-        })
-}
-
-const onLoginFailed = (dispatch, errorMessage) => {
-    dispatch({ type: LOGIN_FAILED, error: errorMessage})
 };

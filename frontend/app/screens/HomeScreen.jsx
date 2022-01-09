@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { 
-  View, StyleSheet, ScrollView, Alert, Modal,
-  Text, Pressable, SafeAreaView, FlatList
+  View, StyleSheet, ScrollView, Alert, Modal, FlatList,
+  Text, SafeAreaView
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 import {
-  ButtonShared, CardOpacity,
+  ButtonShared,
   HeaderComponent,
   MenuBar, Item, Spinner
 } from "../components";
-import { getServicesItems, getUserById } from '../actions'
+import { getServicesItems, searchFromTo } from '../actions'
 import { Input, Button, Icon } from 'react-native-elements';
 
 
@@ -53,7 +53,9 @@ const styles = StyleSheet.create({
  
 class Home extends Component {
   state = {
-    modalVisible: false
+    modalVisible: false,
+    fromS:'',
+    toS:'',
   };
 
   componentDidMount(){
@@ -65,21 +67,25 @@ class Home extends Component {
   }
 
   search(){
-    // Alert.alert("Search")
-    console.log('search');
+    const { fromS, toS } = this.state
+    this.props.searchFromTo({fromS, toS}) 
+    console.log(this.props.error);
+    this.setState({ modalVisible: false });
   }
 
   _renderItem = ({ item }) => (
           
     
     <Item 
-      OnReservation={()=>{
-        this.props.navigation.navigate('ReservationScreen', { itemID: item})
+      showDetail={()=>{
+        this.props.navigation.navigate('ServiceDetail', { itemID: item})
+        
       }}
-      showDetail={()=> 
+      userProfile={()=> 
         {
           // console.log(item._id)
-        this.props.navigation.navigate('ServiceDetail', { itemID: item})
+        this.props.navigation.navigate('ProfileScreen', { itemID: item})
+        
         }}
       title={item.user_id.first_name  +' '+ item.user_id.last_name.toUpperCase() }
       from={item.departure} 
@@ -96,11 +102,15 @@ class Home extends Component {
       return <Spinner/>
     }
     else{
-      return <FlatList
-      keyExtractor={item => item._id}
-      data={services}
-      renderItem={this._renderItem}
-    />
+      return (
+        <SafeAreaView>
+          <FlatList
+            keyExtractor={item => item._id}
+            data={services}
+            renderItem={this._renderItem}
+          />
+        </SafeAreaView>
+    )
     }
   }
 
@@ -110,14 +120,28 @@ class Home extends Component {
 
     return (
       <View style={styles.container}>
-        <HeaderComponent text="Accuiel"/>
+        <HeaderComponent text="Accueil"/>
         <StatusBar style="light" />
+            <View style={{margin:10, marginTop:20, width:130}}>
+              <Button
+                onPress={()=> {this.setModalVisible()}} 
+                title="Rechercher"
+                buttonStyle={{borderRadius: 10,backgroundColor:'#E4A718'}}
+                iconRight
+                iconPosition="right"
+                icon={
+                  <Icon
+                    name="search"
+                    size={20}
+                    color="white"
+                    style={{marginLeft:5}}
+                  />
+                }
+              />
+            </View>
         <ScrollView>
           <View style={{marginBottom:50}}>
           
-            <View style={{margin:20, marginTop:50}}>
-              <ButtonShared text="Rechercher" onPress={()=> {this.setModalVisible()}}/>
-            </View>
 
             <View style={styles.centeredView}>
               <Modal
@@ -133,9 +157,11 @@ class Home extends Component {
                   <View style={styles.modalView}>
                     <Input
                         placeholder='Ville depart'
+                        onChangeText={(fromS)=> this.setState({fromS})}
                     />
                     <Input
                         placeholder='Ville destination'
+                        onChangeText={(toS)=> this.setState({toS})}
                     />
                     <View style={{flexDirection:'row'}}>
                       <ButtonShared 
@@ -143,9 +169,9 @@ class Home extends Component {
                         onPress={() => this.search()}
                       />
                       <Button
-                        title='Close'
-                        buttonStyle={{backgroundColor:'black', borderRadius:10, marginLeft:5}}
-                        onPress={() => this.setModalVisible(!modalVisible)}
+                        title='x'
+                        buttonStyle={{width:50, backgroundColor:'black', borderRadius:10, marginLeft:5}}
+                        onPress={() => this.setState({ modalVisible: false })}
                         style={{marginHorizontal:3}}
                       />
                       
@@ -179,5 +205,5 @@ const mapStateToProps = state => {
   };
 };
  
-const HomeScreen = connect(mapStateToProps, {getServicesItems}) (Home);
+const HomeScreen = connect(mapStateToProps, {getServicesItems, searchFromTo}) (Home);
 export { HomeScreen }

@@ -16,26 +16,16 @@ const styles = StyleSheet.create({
         position:'absolute',
         top:-10,
         right:-10,
-        padding:10,
+        padding:7,
         justifyContent:'center',
         alignItems:'flex-end'
     }
 });
-
-const MyDrawer = ()=> {
-  return (
-    //   <NavigationContainer>
-        <Drawer.Navigator>
-            <Drawer.Screen name="ButtonShared" component={ButtonShared} />
-        </Drawer.Navigator>
-    // </NavigationContainer>
-  );
-}
  
 const RightComponentLogo = () =>{
     return (
         <View style={styles.bgLogo}>
-            <Image source={require('../../assets/logo2.png')} style={{width:80, height:40, justifyContent:'center', alignSelf:'center'}}/>
+            <Image source={require('../../assets/logo2.png')} style={{width:70, height:35, justifyContent:'center', alignSelf:'center'}}/>
         </View>
     )
 }
@@ -44,21 +34,6 @@ class HeaderComponent extends Component {
 
     componentDidMount(){
         // this.props.navigation.setParams({ handleSave: this._logout });
-    }
-
-    _logout (){
-        console.log('logout ok');
-    }
-
-    LogoutComponent(){
-        return (
-        <View>
-            <TouchableOpacity onPress={this._logout()}>                
-                <Text>logout</Text>
-            </TouchableOpacity>
-        </View>
-        )
-       
     }
   
     render() { 

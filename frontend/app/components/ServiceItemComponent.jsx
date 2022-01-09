@@ -46,7 +46,7 @@ const Item = (props) => (
                 style={{width:80, height:80, borderRadius:10,
                     borderColor:'orange', borderWidth:1,
                 }}
-                onPress={props.showDetail}
+                onPress={props.userProfile}
                 >
             </Image>
             {/* col 2  */}
@@ -62,7 +62,7 @@ const Item = (props) => (
                         style={{marginTop:2}}
                     />
                 </View>
-                 <ButtonShared text="Réserver" onPress={props.OnReservation}/>
+                 <ButtonShared text="Montre plus" onPress={props.showDetail}/>
             </View>
         </View>
     </View>

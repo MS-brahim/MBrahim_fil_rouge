@@ -14,7 +14,7 @@ import { HomeScreen,
   InboxScreen,
   ServiceDetail,
   DashboardScreen,
-  ReservationScreen
+  HelpScreen
 } from './app/screens'
 import { 
   DiscordScreen
@@ -75,10 +75,10 @@ const App = () => {
             }}
           /> 
           <Stack.Screen
-            name="ReservationScreen"
-            component={ReservationScreen}
+            name="HelpScreen"
+            component={HelpScreen}
             options={{
-              title: "Demander une réservation",
+              title: "Aide",
               headerTintColor: "orange",
               headerStyle: {
                 backgroundColor: "#072B61",

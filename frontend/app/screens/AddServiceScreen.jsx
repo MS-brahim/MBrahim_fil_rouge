@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet,
-    ScrollView, Image, 
+    ScrollView, 
 } from 'react-native';
 import { CheckBox, Input } from 'react-native-elements';
 import { MenuBar, ButtonShared } from '../components';
 import { createServiceItem } from '../actions'
 import {connect} from 'react-redux'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-// import { TabView, SceneMap } from 'react-native-tab-view';
 
 const styles = StyleSheet.create({
     container: {
@@ -44,7 +41,8 @@ class AddService extends Component {
             checked:false,
             weight: '0',
             image: '',
-            user_id: '61367de0139793142ce35b28'
+            user_id: '61367de0139793142ce35b28',
+            datePickerVisibility:false
         };
     }
 

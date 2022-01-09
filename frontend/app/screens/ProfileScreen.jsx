@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import { ListItem, Card, Rating, SocialIcon  } from 'react-native-elements'
 import { MenuBar } from '../components';
-import { connect } from 'react-redux';
-import { getUserById } from '../actions'
 
 const styles = StyleSheet.create({
     container: {
@@ -25,11 +23,10 @@ const styles = StyleSheet.create({
 });
 
 
-class Profile extends Component {
-    componentDidMount(){
-        this.props.getUserById('61367de0139793142ce35b28');
-    }
+class ProfileScreen extends Component {
+    
     render(){
+        const userProfile = this.props.route.params.itemID.user_id
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -40,7 +37,7 @@ class Profile extends Component {
                             }}>
                             <Card.Image 
                                 source={{
-                                    uri:this.props.userId.image ,
+                                    uri:userProfile.image ,
                                 }}
                                 style={{width:140, height:140 ,borderRadius:300,
                                 marginVertical:8, borderColor:'#072B61', borderWidth:1,
@@ -59,7 +56,7 @@ class Profile extends Component {
                         </Card.Title>
                         <Card.Title>
                             <Text>
-                                {this.props.userId.first_name} {this.props.userId.first_name}
+                                {userProfile.first_name} {userProfile.first_name}
                             </Text>
                         </Card.Title>
                     </View>
@@ -89,25 +86,25 @@ class Profile extends Component {
                         <ListItem bottomDivider containerStyle={{backgroundColor:'#072B61', paddingBottom:10}}>
                             <ListItem.Content style={{color:'#E4A718' }}>
                                 <Text style={styles.textInfo}>E-mail :</Text>
-                                <ListItem.Title style={{color:'#cccccc', marginLeft:10}}><Text>{this.props.userId.email}</Text></ListItem.Title>
+                                <ListItem.Title style={{color:'#cccccc', marginLeft:10}}><Text>{userProfile.email}</Text></ListItem.Title>
                             </ListItem.Content>
                         </ListItem>
                         <ListItem bottomDivider containerStyle={{backgroundColor:'#072B61', paddingBottom:10}}>
                             <ListItem.Content>
                             <Text style={styles.textInfo}>Phone :</Text>
-                            <ListItem.Title style={{color:'#cccccc', marginLeft:10}}><Text>{this.props.userId.phone}</Text></ListItem.Title>
+                            <ListItem.Title style={{color:'#cccccc', marginLeft:10}}><Text>{userProfile.phone}</Text></ListItem.Title>
                             </ListItem.Content>
                         </ListItem>
                         <ListItem bottomDivider containerStyle={{backgroundColor:'#072B61', paddingBottom:10}}>
                             <ListItem.Content>
                             <Text style={styles.textInfo}>Adresse :</Text>
-                            <ListItem.Title style={{color:'#cccccc', marginLeft:10}}><Text>{this.props.userId.address}</Text></ListItem.Title>
+                            <ListItem.Title style={{color:'#cccccc', marginLeft:10}}><Text>{userProfile.address}</Text></ListItem.Title>
                             </ListItem.Content>
                         </ListItem>
                         <ListItem bottomDivider containerStyle={{backgroundColor:'#072B61', paddingBottom:10}}>
                             <ListItem.Content>
                             <Text style={styles.textInfo}>Date Né :</Text>
-                            <ListItem.Title style={{color:'#cccccc', marginLeft:10}}><Text>{ new Date(Date.parse(this.props.userId.date_birth)).toDateString()}</Text></ListItem.Title>
+                            <ListItem.Title style={{color:'#cccccc', marginLeft:10}}><Text>{ new Date(Date.parse(userProfile.date_birth)).toDateString()}</Text></ListItem.Title>
                             </ListItem.Content>
                         </ListItem>
                         <ListItem bottomDivider containerStyle={{backgroundColor:'#072B61', paddingBottom:10}}>
@@ -132,16 +129,5 @@ class Profile extends Component {
     }
 }
 
-
-const mapStateToProps = state => {
-  return {
-    error: state.userId.error,  
-    fetching: state.userId.fetching,  
-    userId: state.userId.userId,  
-    user:state.auth.user,
-  };
-};
-
-const ProfileScreen = connect(mapStateToProps, {getUserById}) (Profile);
 
 export {ProfileScreen};

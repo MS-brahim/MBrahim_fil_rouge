@@ -14,9 +14,7 @@ import {
     LinkShared, 
     ButtonShared,
     NavWarinigShared,
-    SocialButtonShared,
     CardOpacity,
-    Spinner,
 } from "../../components";
 
 const styles = StyleSheet.create({
