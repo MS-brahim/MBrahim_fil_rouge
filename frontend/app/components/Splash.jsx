@@ -21,7 +21,7 @@ class Splash extends Component {
     componentDidMount(){
         AsyncStorage.getItem('TOKEN').then((token ) => {
             if (token) {
-                this.props.navigation.navigate('HomeScreen')
+                this.props.navigation.navigate('DashboardScreen')
             } else {
                 this.props.navigation.navigate('SignIn')
             }

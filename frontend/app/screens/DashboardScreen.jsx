@@ -7,7 +7,6 @@ import { Spinner } from "../components";
 import { connect } from 'react-redux';
 import { getUserById } from '../actions'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { TapGestureHandler } from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
     container: {
@@ -132,22 +131,32 @@ class Dashboard extends Component {
                                 <ListItem.Chevron />
                         </ListItem>
 
-                        {/* <ListItem.Accordion></ListItem.Accordion> */}
+                        <ListItem>
 
+
+                        <ListItem.Title style={{color:'#cccccc'}}>Paramètres</ListItem.Title>
+                        </ListItem>
                         <ListItem.Accordion
                             bottomDivider
                             containerStyle={{backgroundColor:'#072B61',color:'#cccccc'}}
                             isExpanded= {this.state.expanded}
+                            title={<Text>Accordion title</Text>}
                             animation={{duration: 350,type: 'timing',}}
                             onPress={()=>{this.handlePress()}}>
                         
-                            <ListItem.Title style={{color:'#cccccc'}}>Paramètres</ListItem.Title>
 
                             <ListItem bottomDivider containerStyle={{backgroundColor:'#072B61', color:'#cccccc'}} >
 
                                 <Icon iconStyle={{color:'#cccccc'}} name='settings'/>
                                 <ListItem.Content>
-                                    <ListItem.Title style={{color:'#cccccc'}}>Paramètres</ListItem.Title>
+                                    <ListItem.Title style={{color:'#cccccc'}}>Modifier les coordonnées personnel</ListItem.Title>
+                                </ListItem.Content>
+                            </ListItem>
+                            <ListItem bottomDivider containerStyle={{backgroundColor:'#072B61', color:'#cccccc'}} >
+
+                                <Icon iconStyle={{color:'#cccccc'}} name='lock'/>
+                                <ListItem.Content>
+                                    <ListItem.Title style={{color:'#cccccc'}}>Modifier le mot de passe</ListItem.Title>
                                 </ListItem.Content>
                             </ListItem>
                         </ListItem.Accordion>
